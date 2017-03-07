@@ -146,7 +146,7 @@ function setupBackgroundApp(app, myApp, dirname) {
 
     //myApp.use(enableCORS);
     app.use('/', myApp);
-    var layers = myApp._router.stack.map(l => l.name)
+    var layers = myApp.parent._router.stack.map(l => l.name)
 
     // check if body-parser is mounted
     var BPmountPos = layers.indexOf('urlencodedParser');
@@ -157,7 +157,7 @@ function setupBackgroundApp(app, myApp, dirname) {
     globals.cookieParserMountPosition = CPmountPos > -1 ? CPmountPos - 1 : 0;
 
     // check if /now route has a middleware before the handler
-    var nowRoute = myApp._router.stack.filter(l => {
+    var nowRoute = myApp.parent._router.stack.filter(l => {
       if(l.route) {
         return l.route.path === '/now'
       }
